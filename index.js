@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const PORT = process.env.PORT || 8081;
+const PORT = 8081;
 const periods = require('./periodsData');
 
 express()
