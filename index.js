@@ -7,7 +7,7 @@ app.use(express.json());
 const port = 8081;
 
 app.get('/api/periods', function (req, res) {
-  res.json(periods.periodsData);
+  res.json(periods);
 });
 
 app.post('/api/periods', (req, res) => {
