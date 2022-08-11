@@ -28,6 +28,6 @@ const PORT = process.env.PORT || 5000;
 const periodsData = require('./periodsData');
 
 express()
-  .get('/', (req, res) => res.send('<h1>Hello World!</h1>'))
+  .get('/', (req, res) => res.send('<h1>Hello from backend</h1>'))
   .get('/api/periods', (req, res) => res.send(periodsData))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
