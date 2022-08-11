@@ -1,9 +1,9 @@
 // const express = require('express');
 
-const periodsData = [
-  { id: 1, type: 'Had flows', date: '2022-08-10' },
-  { id: 2, type: 'Meds', date: '2022-08-14' },
-];
+// const periodsData = [
+//   { id: 1, type: 'Had flows', date: '2022-08-10' },
+//   { id: 2, type: 'Meds', date: '2022-08-14' },
+// ];
 
 // const app = express();
 // app.use(express.json());
@@ -23,20 +23,11 @@ const periodsData = [
 //   console.log(`Listening to requests on http://localhost:${port}`);
 // });
 
-// create an express app
 const express = require('express');
-const app = express();
+const PORT = process.env.PORT || 5000;
+const periodsData = require('./periodsData');
 
-// use the express-static middleware
-app.use(express.static('public'));
-
-// define the first route
-app.get('/', function (req, res) {
-  res.send('<h1>Hello World!</h1>');
-});
-app.get('/api/periods', function (req, res) {
-  res.send(periodsData);
-});
-
-// start the server listening for requests
-app.listen(3000, () => console.log('Server is running...'));
+express()
+  .get('/', (req, res) => res.send('<h1>Hello World!</h1>'))
+  .get('/api/periods', (req, res) => res.send(periodsData))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
