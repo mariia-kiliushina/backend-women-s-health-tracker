@@ -1,12 +1,13 @@
 ###
 GET http://localhost:8081/api/periods
 
-
-
-
 ###
 POST http://localhost:8081/api/periods 
 Content-Type: application/json
 
-{"id":"2","type": "Flows","date": "22-09-2039"
+{
+  "id":"2",
+  "type": "Flows",
+  "date": "22-09-2039"
 }
+
