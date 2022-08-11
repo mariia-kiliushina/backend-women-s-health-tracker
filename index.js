@@ -30,6 +30,11 @@ const periodsData = require('./periodsData');
 
 express()
   .use(cors())
+  .use(express.json())
   .get('/', (req, res) => res.send('<h1>Hello from backend</h1>'))
   .get('/api/periods', (req, res) => res.send(periodsData))
+  .post('/api/periods', (req, res) => {
+    periodsData.push(req.body);
+    res.json(req.body);
+  })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
