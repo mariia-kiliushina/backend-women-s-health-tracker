@@ -1,0 +1,73 @@
+## pull postgers image to docker
+
+docker pull postgres //(default name is postgres)
+
+## pull pgadmin image to docker
+
+docker pull dpage/pgadmin4:latest //(default name is dpage/pgadmin4)
+
+## create docker container from postgres image
+
+docker run
+--name <MY-POSTGRES-CONTAINER-NAME>
+-e POSTGRES_USER=<MY-PG-USER-NAME>
+-e POSTGRES_PASSWORD=<MY-PG-PSWD>
+-d <POSTGRES_IMAGE_NAME> //(default name is "postgres")
+
+## create docker container from dpage/pgadmin4 image
+
+create docker run
+--name <MY-PGADMIN-CONTAINER-NAME>
+-p 82:80
+-e 'PGADMIN_DEFAULT_EMAIL=<admin@admin.com>'
+-e 'PGADMIN_DEFAULT_PASSWORD=<MY-PGADMIN-PSWD>'
+-d <PGADMIN_IMAGE_NAME> //(default name is "dpage/pgadmin4")
+
+## OR compose docker container form .yaml
+
+docker compose up
+
+## view all docker containers
+
+docker ps -a
+
+## inspect <MY-POSTGRES-CONTAINER-NAME> to find IP address
+
+docker inspect <MY-POSTGRES-CONTAINER-NAME>
+
+## drill in postgres container <MY-POSTGRES-CONTAINER-NAME>
+
+docker exec -it <MY-POSTGRES-CONTAINER-NAME> bash
+
+## drill in postgres
+
+su postgres
+
+## create <DATA_BASE>
+
+CREATE DATABASE <DATA_BASE>
+
+## drill in <DATA_BASE>
+
+psql <DATA_BASE> <MY-PG-USER-NAME>
+
+## create table
+
+CREATE TABLE <TABLE-NAME> (
+AUTHOR_ID INT PRIMARY KEY NOT NULL,
+AUTHOR_NAME TEXT NOT NULL,
+AUTHOR_AGE INT NOT NULL,
+AUTHOR_LEVEL INT NOT NULL
+);
+
+## show all tables
+
+\dt
+
+## show <TABLE-NAME>
+
+\d <TABLE_NAME>
+
+## create a dump of <DATA_BASE>
+
+docker exec -t <MY-POSTGRES-CONTAINER-NAME> pg_dumpall -c -U <DATA_BASE> > dump.sql
