@@ -35,13 +35,18 @@ docker ps -a
 
 docker inspect <MY-POSTGRES-CONTAINER-NAME>
 
-## drill in postgres container <MY-POSTGRES-CONTAINER-NAME>
+## WITH Docker drill in postgres container <MY-POSTGRES-CONTAINER-NAME>
 
 docker exec -it <MY-POSTGRES-CONTAINER-NAME> bash
 
 ## drill in postgres
 
 su postgres
+
+
+## W/O Docker need to install npm i psql 
+psql -h <HOST> -p <PORT> --username=<MY-PG-USER-NAME> -W -d <DATA_BASE>
+psql -h localhost -p 5432 --username=markil -W -d women-health-db
 
 ## create <DATA_BASE>
 
@@ -68,6 +73,6 @@ AUTHOR_LEVEL INT NOT NULL
 
 \d <TABLE_NAME>
 
-## create a dump of <DATA_BASE>
+## create a dump of data bases
 
-docker exec -t <MY-POSTGRES-CONTAINER-NAME> pg_dumpall -c -U <DATA_BASE> > dump.sql
+docker exec -t <MY-POSTGRES-CONTAINER-NAME> pg_dumpall -c -U <MY-PG-USER-NAME> > dump.sql
