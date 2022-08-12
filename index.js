@@ -34,8 +34,8 @@ express()
   .use(express.json())
   .get('/', (req, res) => res.send('<h1>Hello from backend</h1>'))
   .get('/api/periods', (req, res) => res.send(RESULT))
-  .post('/api/periods', (req, res) => {
-    periodsData.push(req.body);
-    res.json(req.body);
-  })
+  // .post('/api/periods', (req, res) => {
+  //   periodsData.push(req.body);
+  //   res.json(req.body);
+  // })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
