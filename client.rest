@@ -8,8 +8,8 @@ POST http://localhost:8081/api/periods
 Content-Type: application/json
 
 {
-  "id":"5",
-  "type": "Flows",
-  "date": "22-09-2039"
+  "id":"10",
+  "type": "Breast pain",
+  "date": "09-09-2030"
 }
 
