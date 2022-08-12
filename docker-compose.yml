@@ -1,0 +1,23 @@
+version: '4'
+services:
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: markil
+      # these name and password are used to create server at pgAdmin
+      POSTGRES_PASSWORD: rootbeer
+      POSTGRES_DB: women-health-db
+    ports:
+      - '5432:5432'
+  pgadmin:
+    container_name: pgadmin-container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      # these name and password are used to sign in to pgAdmin
+      PGADMIN_DEFAULT_PASSWORD: rootbeer
+    ports:
+      - '5050:80'
