@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: markil
       # these name and password are used to create server at pgAdmin
       POSTGRES_PASSWORD: rootbeer
-      POSTGRES_DB: women-health-db
+      POSTGRES_DB: women_health_db
     ports:
       - '5432:5432'
   pgadmin:

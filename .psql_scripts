@@ -46,7 +46,7 @@ su postgres
 
 ## W/O Docker need to install npm i psql 
 psql -h <HOST> -p <PORT> --username=<MY-PG-USER-NAME> -W -d <DATA_BASE>
-psql -h localhost -p 5432 --username=markil -W -d women-health-db
+psql -h localhost -p 5432 --username=markil -W -d women_health_db
 
 ## create <DATA_BASE>
 
