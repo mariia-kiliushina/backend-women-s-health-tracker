@@ -59,12 +59,39 @@ psql <DATA_BASE> <MY-PG-USER-NAME>
 ## create table
 
 CREATE TABLE <TABLE-NAME> (
-AUTHOR_ID INT PRIMARY KEY NOT NULL,
-AUTHOR_NAME TEXT NOT NULL,
-AUTHOR_AGE INT NOT NULL,
-AUTHOR_LEVEL INT NOT NULL
+ID INT PRIMARY KEY NOT NULL,
+TYPE TEXT NOT NULL,
+DATE VARCHAR NOT NULL
 );
 
+CREATE TABLE periods_table (
+ID INT PRIMARY KEY NOT NULL,
+TYPE TEXT NOT NULL,
+DATE VARCHAR NOT NULL
+);
+
+## insert rows into <TABLE-NAME> with relevant column names
+INSERT INTO <TABLE-NAME> (
+    ID, 
+    TYPE,  
+    DATE  
+)
+VALUES
+    (1, 'Had flows', '2022-08-10'),
+    (2, 'Meds', '2015-12-31'),
+    (3, 'No flows', '2020-06-08');
+
+    
+
+INSERT INTO periods_table (
+    ID, 
+    TYPE,  
+    DATE  
+)
+VALUES
+    (1, 'Had flows', '2022-08-10'),
+    (2, 'Meds', '2015-12-31'),
+    (3, 'No flows', '2020-06-08');
 ## show all tables
 
 \dt
