@@ -7,7 +7,6 @@ POST http://localhost:8081/api/periods
 Content-Type: application/json
 
 {
-  "id": "35",
   "type": "Meds",
   "date": "09-09-2022"
 }
