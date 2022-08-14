@@ -3,13 +3,12 @@ GET http://localhost:8081/api/periods
 
 
 ###
-
 POST http://localhost:8081/api/periods 
 Content-Type: application/json
 
 {
-  "id":"10",
-  "type": "Breast pain",
-  "date": "09-09-2030"
+  "id": "35",
+  "type": "Meds",
+  "date": "09-09-2022"
 }
 

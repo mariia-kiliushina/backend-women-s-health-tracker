@@ -59,13 +59,13 @@ psql <DATA_BASE> <MY-PG-USER-NAME>
 ## create table
 
 CREATE TABLE <TABLE-NAME> (
-ID INT PRIMARY KEY NOT NULL,
+ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 TYPE TEXT NOT NULL,
 DATE VARCHAR NOT NULL
 );
 
 CREATE TABLE periods_table (
-ID INT PRIMARY KEY NOT NULL,
+ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 TYPE TEXT NOT NULL,
 DATE VARCHAR NOT NULL
 );
@@ -84,14 +84,13 @@ VALUES
     
 
 INSERT INTO periods_table (
-    ID, 
     TYPE,  
     DATE  
 )
 VALUES
-    (1, 'Had flows', '2022-08-10'),
-    (2, 'Meds', '2015-12-31'),
-    (3, 'No flows', '2020-06-08');
+    ('Had flows', '2022-08-10'),
+    ('Meds', '2015-12-31'),
+    ('No flows', '2020-06-08');
 ## show all tables
 
 \dt
