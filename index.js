@@ -33,8 +33,22 @@ express()
       response.json(result.rows);
     });
   })
-  .post('/api/periods', (req, res) => {
-    periodsData.push(req.body);
-    res.json(req.body);
+  .post('/api/periods', (request, response) => {
+    const { type, date } = request.body;
+    client.query(
+      `INSERT INTO ${tableName} ( type, date) VALUES ($1,$2)`,
+      [type, date],
+      (error, result) => {
+        if (error) {
+          throw error;
+        }
+        client.query(`SELECT * from ${tableName} ORDER BY id DESC LIMIT 1`, (error, result) => {
+          if (error) {
+            throw error;
+          }
+          response.json(result.rows);
+        });
+      }
+    );
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
