@@ -11,3 +11,9 @@ Content-Type: application/json
   "date": "09-09-2022"
 }
 
+###
+
+POST http://localhost:8081/registration 
+Content-Type: application/json
+
+{"login": "login1","password": "nonHashedPassword1"}

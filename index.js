@@ -19,34 +19,33 @@ let tableName = 'periods_table';
 
 client.connect();
 
-express()
-  .use(cors())
-  .use(express.json())
-  .get('/', (req, res) => res.send('<h1>Hello from backend</h1>'))
-  .get('/api/periods', (request, response) => {
-    client.query(`Select * from ${tableName}`, (error, result) => {
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
+
+app.get('/', (req, res) => res.send('<h1>Hello from backend</h1>'));
+
+app.use('/api/registration', require('./routers/registerRoute'));
+app.use('/api/periods', require('./routers/getDataRoute'));
+
+app.post('/api/periods', (request, response) => {
+  const { type, date } = request.body;
+  client.query(
+    `INSERT INTO ${tableName} ( type, date) VALUES ($1,$2)`,
+    [type, date],
+    (error, result) => {
       if (error) {
         throw error;
       }
-      response.json(result.rows);
-    });
-  })
-  .post('/api/periods', (request, response) => {
-    const { type, date } = request.body;
-    client.query(
-      `INSERT INTO ${tableName} ( type, date) VALUES ($1,$2)`,
-      [type, date],
-      (error, result) => {
+      client.query(`SELECT * from ${tableName} ORDER BY id DESC LIMIT 1`, (error, result) => {
         if (error) {
           throw error;
         }
-        client.query(`SELECT * from ${tableName} ORDER BY id DESC LIMIT 1`, (error, result) => {
-          if (error) {
-            throw error;
-          }
-          response.json(result.rows);
-        });
-      }
-    );
-  })
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+        response.json(result.rows);
+      });
+    }
+  );
+});
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
