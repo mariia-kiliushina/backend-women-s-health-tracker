@@ -15,19 +15,10 @@ client.connect();
 
 let tableName = 'periods_table';
 
-const getDBdata = (request, response) => {
-  client.query(`Select * from ${tableName}`, (error, result) => {
-    if (error) {
-      throw error;
-    }
-    response.json(result.rows);
-  });
-};
-
-const postDBdata = async (request, response) => {
+const addRecord = async (request, response) => {
   const { type, date } = request.body;
   client.query(
-    `INSERT INTO ${tableName} ( type, date) VALUES ($1,$2)`,
+    `INSERT INTO ${tableName} (type, date) VALUES ($1,$2)`,
     [type, date],
     (error, result) => {
       if (error) {
@@ -43,4 +34,4 @@ const postDBdata = async (request, response) => {
   );
 };
 
-module.exports = { getDBdata, postDBdata };
+module.exports = { addRecord };

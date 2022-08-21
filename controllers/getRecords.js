@@ -15,7 +15,7 @@ client.connect();
 
 let tableName = 'periods_table';
 
-const getData = (request, response) => {
+const getRecords = (request, response) => {
   client.query(`Select * from ${tableName}`, (error, result) => {
     if (error) {
       throw error;
@@ -24,4 +24,4 @@ const getData = (request, response) => {
   });
 };
 
-module.exports = { getData };
+module.exports = { getRecords };

@@ -7,8 +7,8 @@ POST http://localhost:8081/api/periods
 Content-Type: application/json
 
 {
-  "type": "Meds",
-  "date": "09-09-2022"
+  "type": "No flows",
+  "date": "2022-08-14"
 }
 
 ###
@@ -16,4 +16,4 @@ Content-Type: application/json
 POST http://localhost:8081/registration 
 Content-Type: application/json
 
-{"login": "login1","password": "nonHashedPassword1"}
+{"login": "login2","password": "nonHashedPassword2"}
