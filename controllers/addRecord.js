@@ -34,7 +34,7 @@ let tableName = 'periods_table';
 //   );
 // };
 
-const addRecord = async (request, response) => {
+const postRecord = async (request, response) => {
   const { id, type, date } = request.body;
   client.query(
     `INSERT INTO ${tableName} (id,type, date) VALUES ($1,$2,$3)`,
@@ -53,4 +53,24 @@ const addRecord = async (request, response) => {
   );
 };
 
-module.exports = { addRecord };
+const patchRecordById = async (request, response) => {
+  const id = request.params.id;
+  const { type, date } = request.body;
+  client.query(
+    `Update ${tableName} set type = $2, date = $3 where id = $1`,
+    [id, type, date],
+    (error, result) => {
+      if (error) {
+        throw error;
+      }
+      client.query(`SELECT * from ${tableName} where id=${id}`, (error, result) => {
+        if (error) {
+          throw error;
+        }
+        response.json(result.rows);
+      });
+    }
+  );
+};
+
+module.exports = { postRecord, patchRecordById };

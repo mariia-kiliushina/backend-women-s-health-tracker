@@ -24,4 +24,14 @@ const getRecords = (request, response) => {
   });
 };
 
-module.exports = { getRecords };
+const getRecordsById = (request, response) => {
+  const ID = request.params.id;
+  client.query(`Select * from ${tableName} where id=${ID}`, (error, result) => {
+    if (error) {
+      throw error;
+    }
+    response.json(result.rows);
+  });
+};
+
+module.exports = { getRecords, getRecordsById };
