@@ -15,11 +15,30 @@ client.connect();
 
 let tableName = 'periods_table';
 
+// const addRecord = async (request, response) => {
+//   const { type, date } = request.body;
+//   client.query(
+//     `INSERT INTO ${tableName} (type, date) VALUES ($1,$2)`,
+//     [type, date],
+//     (error, result) => {
+//       if (error) {
+//         throw error;
+//       }
+//       client.query(`SELECT * from ${tableName} ORDER BY id DESC LIMIT 1`, (error, result) => {
+//         if (error) {
+//           throw error;
+//         }
+//         response.json(result.rows);
+//       });
+//     }
+//   );
+// };
+
 const addRecord = async (request, response) => {
-  const { type, date } = request.body;
+  const { id, type, date } = request.body;
   client.query(
-    `INSERT INTO ${tableName} (type, date) VALUES ($1,$2)`,
-    [type, date],
+    `INSERT INTO ${tableName} (id,type, date) VALUES ($1,$2,$3)`,
+    [id, type, date],
     (error, result) => {
       if (error) {
         throw error;
