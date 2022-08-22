@@ -22,7 +22,6 @@ const corsOptions = {
   optionsSucessStatus: 200,
 };
 app.use(cors(corsOptions));
-// app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,8 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'views', 'index.html')));
 
 //API routes
-app.use('/api/registration', require('./routers/registerRoute'));
 app.use('/api/periods', require('./routers/recordsRoute'));
+app.use('/api/registration', require('./routers/registrationRoute'));
+app.use('/api/authentication', require('./routers/authenticationRoute'));
 
 //custom error handler
 app.use((error, request, response, next) => {

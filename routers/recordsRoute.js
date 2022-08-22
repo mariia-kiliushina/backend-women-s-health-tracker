@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const getRecordsController = require('../controllers/getRecords');
-const addRecordController = require('../controllers/addRecord');
+const recordsController = require('../controllers/records');
 
-router.route('/').get(getRecordsController.getRecords).post(addRecordController.postRecord);
+router.route('/').get(recordsController.getRecords).post(recordsController.postRecord);
 
-router
-  .route('/:id')
-  .get(getRecordsController.getRecordsById)
-  .patch(addRecordController.patchRecordById);
+router.route('/:id').get(recordsController.getRecordsById).patch(recordsController.patchRecordById);
 
 module.exports = router;

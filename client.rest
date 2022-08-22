@@ -9,18 +9,24 @@ POST http://localhost:8081/api/periods
 Content-Type: application/json
 
 {
-  "id": 356,
+  "id": 367,
   "type": "No flows",
   "date": "2022-08-19"
 }
 
 ###
 
-POST http://localhost:8081/registration 
+POST http://localhost:8081/api/registration 
 Content-Type: application/json
 
-{"login": "login2","password": "nonHashedPassword2"}
+{"login": "user1","password": "fake"}
 
+###
+
+POST http://localhost:8081/api/authentication 
+Content-Type: application/json
+
+{"login": "login5","password": "nonHashedPassword5"}
 
 ###
 PATCH http://localhost:8081/api/periods/1

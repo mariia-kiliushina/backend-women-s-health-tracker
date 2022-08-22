@@ -70,6 +70,12 @@ TYPE TEXT NOT NULL,
 DATE VARCHAR NOT NULL
 );
 
+CREATE TABLE users_table (
+ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+LOGIN TEXT NOT NULL,
+PASSWORD VARCHAR NOT NULL
+);
+
 ## insert rows into <TABLE-NAME> with relevant column names
 INSERT INTO <TABLE-NAME> (
     ID, 
@@ -91,6 +97,18 @@ VALUES
     ('Had flows', '2022-08-10'),
     ('Meds', '2015-12-31'),
     ('No flows', '2020-06-08');
+
+
+INSERT INTO users_table (
+    LOGIN,  
+    PASSWORD  
+)
+VALUES
+    ('user1', 'user1'),
+    ('user2', 'user2');
+
+
+
 ## show all tables
 
 \dt
