@@ -19,27 +19,24 @@ let tableName = 'users_table';
 
 const handleLogin = async (request, response) => {
   const { login, password } = request.body;
+  let foundUsers;
   let foundUser;
   try {
-    client.query(`SELECT * from ${tableName} where login = $1`, [login], (error, result) => {
-      if (!error) {
-        console.log('result');
-      } else {
-        return response.status(401).json({ message: 'Login is incorrect' });
-      }
-    });
+    foundUsers = await client.query(`SELECT * from ${tableName} where login = $1`, [login]);
+    foundUser = await foundUsers.rows[0];
+    if (foundUser === undefined)
+      return response.status(401).json({ message: 'Login is incorrect' });
   } catch (error) {
     response.status(500).json({ message: error.message });
   }
 
   try {
-    const verifiedPassword = await bcrypt.compare(password, password);
-
+    const verifiedPassword = await bcrypt.compare(password, foundUser.password);
     if (!verifiedPassword) return response.status(401).json({ message: 'Password is incorrect' });
   } catch (error) {
     response.status(500).json({ message: error.message });
   }
-  return response.json({ success: `User ${login} was authorized` });
+  response.json({ success: `User ${login} was authorized` });
 };
 
 module.exports = { handleLogin };

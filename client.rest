@@ -19,14 +19,14 @@ Content-Type: application/json
 POST http://localhost:8081/api/registration 
 Content-Type: application/json
 
-{"login": "user1","password": "fake"}
+{"login": "user7","password": "user7"}
 
 ###
 
 POST http://localhost:8081/api/authentication 
 Content-Type: application/json
 
-{"login": "login5","password": "nonHashedPassword5"}
+{"login": "user6","password": "user6"}
 
 ###
 PATCH http://localhost:8081/api/periods/1
