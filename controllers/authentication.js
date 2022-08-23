@@ -1,8 +1,11 @@
 const { Client } = require('pg');
 const { config } = require('dotenv');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+
 const { check } = require('express-validator');
+const generateTokenByLogin = require('../utils/generateTokenByLogin');
+
+let refreshToken;
 
 config();
 
@@ -17,15 +20,6 @@ const client = new Client({
 client.connect();
 
 let tableName = 'users_table';
-
-const genereateToken = (login, expTime, token) => {
-  const payload = {
-    login,
-  };
-  return jwt.sign(payload, token, {
-    expiresIn: expTime,
-  });
-};
 
 const handleLogin = async (request, response) => {
   const { login, password } = request.body;
@@ -46,9 +40,13 @@ const handleLogin = async (request, response) => {
   } catch (error) {
     response.status(500).json({ message: error.message });
   }
-  const accessToken = genereateToken(request.login, '1d', process.env.ACCESS_TOKEN_SECRET_KEY);
 
-  const refreshToken = genereateToken(request.login, '1d', process.env.REFRESH_TOKEN_SECRET_KEY);
+  console.log('login');
+  console.log(login);
+
+  const accessToken = generateTokenByLogin(login, process.env.ACCESS_TOKEN_SECRET_KEY, '1d');
+
+  refreshToken = generateTokenByLogin(login, process.env.REFRESH_TOKEN_SECRET_KEY, '1d');
 
   await client.query(`UPDATE ${tableName} SET refresh_token = $1 WHERE login = $2;`, [
     refreshToken,
@@ -61,4 +59,4 @@ const handleLogin = async (request, response) => {
   response.json({ success: `User ${login} was authorized`, accessToken });
 };
 
-module.exports = { handleLogin };
+module.exports = { handleLogin, refreshToken };
