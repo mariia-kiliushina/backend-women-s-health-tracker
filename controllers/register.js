@@ -22,9 +22,14 @@ const handleNewUser = async (request, response) => {
   if (!login || !password)
     return response.status(400).json({ message: 'Login and password are required' });
 
-  let foundUser = await client.query(`SELECT * from ${tableName} where login = $1`, [login]);
-  if (foundUser)
-    return response.status(409).json({ message: `User with login ${login} already exists` });
+  try {
+    foundUsers = await client.query(`SELECT * from ${tableName} where login = $1`, [login]);
+    foundUser = await foundUsers.rows[0];
+    if (foundUser !== undefined)
+      return response.status(409).json({ message: `User with login ${login} already exists` });
+  } catch (error) {
+    response.status(500).json({ message: error.message });
+  }
 
   try {
     const hashedPassword = await bcrypt.hash(password, 7);

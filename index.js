@@ -2,9 +2,8 @@ const express = require('express');
 var cors = require('cors');
 const PORT = process.env.PORT || 8081;
 const path = require('path');
-const { response } = require('express');
-
 const app = express();
+const verifyJWT = require('./middleware/jwtVerification');
 
 const whiteList = [
   'http://localhost:8081',
@@ -31,9 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'views', 'index.html')));
 
 //API routes
-app.use('/api/periods', require('./routers/recordsRoute'));
 app.use('/api/registration', require('./routers/registrationRoute'));
 app.use('/api/authentication', require('./routers/authenticationRoute'));
+
+app.use(verifyJWT);
+app.use('/api/periods', require('./routers/recordsRoute'));
 
 //custom error handler
 app.use((error, request, response, next) => {
@@ -42,3 +43,17 @@ app.use((error, request, response, next) => {
 });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+// app.listen(PORT, () => {
+//   console.log(`Listening on ${PORT}`);
+//   let options = {
+//     port: PORT,
+//     host: 'localhost',
+//   };
+//   let request = http.request(options);
+//   request.setHeader(
+//     'Authorization',
+//     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNDU3NzcsImV4cCI6MTY2MTI0NTgzN30.pIUiOKRAkOrPofFnMeeejH81Th6GqQXVbJpPzdw3RY4'
+//   );
+//   request.end();
+// });

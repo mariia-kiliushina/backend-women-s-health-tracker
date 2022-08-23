@@ -1,7 +1,8 @@
 const { Client } = require('pg');
 const { config } = require('dotenv');
-const express = require('express');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { check } = require('express-validator');
 
 config();
 
@@ -16,6 +17,15 @@ const client = new Client({
 client.connect();
 
 let tableName = 'users_table';
+
+const genereateToken = (login, expTime, token) => {
+  const payload = {
+    login,
+  };
+  return jwt.sign(payload, token, {
+    expiresIn: expTime,
+  });
+};
 
 const handleLogin = async (request, response) => {
   const { login, password } = request.body;
@@ -36,7 +46,19 @@ const handleLogin = async (request, response) => {
   } catch (error) {
     response.status(500).json({ message: error.message });
   }
-  response.json({ success: `User ${login} was authorized` });
+  const accessToken = genereateToken(request.login, '1d', process.env.ACCESS_TOKEN_SECRET_KEY);
+
+  const refreshToken = genereateToken(request.login, '1d', process.env.REFRESH_TOKEN_SECRET_KEY);
+
+  await client.query(`UPDATE ${tableName} SET refresh_token = $1 WHERE login = $2;`, [
+    refreshToken,
+    foundUser.login,
+  ]);
+
+  ////httpOnly cookie is not available to JS so it's more secure
+
+  response.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+  response.json({ success: `User ${login} was authorized`, accessToken });
 };
 
 module.exports = { handleLogin };
