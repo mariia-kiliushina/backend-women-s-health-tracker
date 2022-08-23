@@ -22,27 +22,17 @@ const handleNewUser = async (request, response) => {
   if (!login || !password)
     return response.status(400).json({ message: 'Login and password are required' });
 
-  try {
-    client.query(`SELECT * from ${tableName} where login = $1`, [login], (error, result) => {
-      if (!error) {
-        return response.status(409).json({ message: `User with login ${login} already exists` });
-      }
-    });
-  } catch (error) {
-    response.status(500).json({ message: error.message });
-  }
+  let foundUser = await client.query(`SELECT * from ${tableName} where login = $1`, [login]);
+  if (foundUser)
+    return response.status(409).json({ message: `User with login ${login} already exists` });
 
   try {
     const hashedPassword = await bcrypt.hash(password, 7);
-    client.query(
-      `INSERT INTO ${tableName} (login, password) VALUES ($1,$2)`,
-      [login, hashedPassword],
-      (error, result) => {
-        if (error) {
-          throw error;
-        }
-      }
-    );
+    await client.query(`INSERT INTO ${tableName} (login, password) VALUES ($1,$2)`, [
+      login,
+      hashedPassword,
+    ]);
+
     response.status(201).json({ success: `New user ${login} was created` });
   } catch (error) {
     response.status(500).json({ message: error.message });
