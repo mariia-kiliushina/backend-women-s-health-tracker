@@ -5,13 +5,9 @@ const path = require('path');
 const app = express();
 const cookieParser = require('cookie-parser');
 const verifyJWT = require('./middleware/jwtVerification');
-// const corsOptions = require('./config/corsOptions');
+const corsOptions = require('./config/corsOptions');
 const credentials = require('./middleware/credentials');
 
-const corsOptions = {
-  origin: 'https://rad-brigadeiros-220815.netlify.app',
-  // credentials: true,
-};
 // app.use(credentials);
 app.use(cors(corsOptions));
 
