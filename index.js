@@ -8,7 +8,7 @@ const verifyJWT = require('./middleware/jwtVerification');
 const corsOptions = require('./config/corsOptions');
 const credentials = require('./middleware/credentials');
 
-app.use(credentials);
+// app.use(credentials);
 app.use(cors(corsOptions));
 
 app.use(express.json());
