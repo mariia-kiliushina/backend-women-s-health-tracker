@@ -10,7 +10,7 @@ const credentials = require('./middleware/credentials');
 
 const corsOptions = {
   origin: 'https://rad-brigadeiros-220815.netlify.app',
-  credentials: true,
+  // credentials: true,
 };
 // app.use(credentials);
 app.use(cors(corsOptions));
