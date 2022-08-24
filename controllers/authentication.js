@@ -5,8 +5,6 @@ const bcrypt = require('bcrypt');
 const { check } = require('express-validator');
 const generateTokenByLogin = require('../utils/generateTokenByLogin');
 
-let refreshToken;
-
 config();
 
 const client = new Client({
@@ -41,12 +39,9 @@ const handleLogin = async (request, response) => {
     response.status(500).json({ message: error.message });
   }
 
-  console.log('login');
-  console.log(login);
+  const accessToken = generateTokenByLogin(login, process.env.ACCESS_TOKEN_SECRET_KEY, '600s');
 
-  const accessToken = generateTokenByLogin(login, process.env.ACCESS_TOKEN_SECRET_KEY, '1d');
-
-  refreshToken = generateTokenByLogin(login, process.env.REFRESH_TOKEN_SECRET_KEY, '1d');
+  const refreshToken = generateTokenByLogin(login, process.env.REFRESH_TOKEN_SECRET_KEY, '1d');
 
   await client.query(`UPDATE ${tableName} SET refresh_token = $1 WHERE login = $2;`, [
     refreshToken,
@@ -55,8 +50,13 @@ const handleLogin = async (request, response) => {
 
   ////httpOnly cookie is not available to JS so it's more secure
 
-  response.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
+  response.cookie('jwt', refreshToken, {
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
   response.json({ success: `User ${login} was authorized`, accessToken });
 };
 
-module.exports = { handleLogin, refreshToken };
+module.exports = { handleLogin };

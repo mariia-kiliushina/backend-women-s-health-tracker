@@ -19,11 +19,8 @@ let tableName = 'users_table';
 const handleRefreshToken = async (request, response) => {
   const cookies = request.cookies;
   if (!cookies?.jwt) return response.sendStatus(401);
-  console.log('cookies.jwt');
-  console.log(cookies.jwt);
+
   const refreshToken = cookies.jwt;
-  // const refreshToken =
-  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNjkzNTgsImV4cCI6MTY2MTM1NTc1OH0.H7WXF7a1dql7ORAu86mc8b9c82Od0oRG55jVeXNo5Uk';
   let foundUsers;
   let foundUser;
   try {

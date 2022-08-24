@@ -1,28 +1,28 @@
 ###
 GET http://localhost:8081/api/periods
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTk0ODYsImV4cCI6MTY2MTM0NTg4Nn0.Ee9og0nGRJApncc708gdFadaHVyed5sDfRtTGNhTRbw
-
+Authorization: Bearer 
 
 ###
 GET http://localhost:8081/api/periods/4
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTk0ODYsImV4cCI6MTY2MTM0NTg4Nn0.Ee9og0nGRJApncc708gdFadaHVyed5sDfRtTGNhTRbw
+Authorization: Bearer 
+
 
 ###
 POST http://localhost:8081/api/periods 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTk0ODYsImV4cCI6MTY2MTM0NTg4Nn0.Ee9og0nGRJApncc708gdFadaHVyed5sDfRtTGNhTRbw
+Authorization: Bearer 
 
 {
-  "id": 375,
+  "id": 378,
   "type": "No flows",
   "date": "2022-08-19"
 }
 
 
 ###
-PATCH http://localhost:8081/api/periods/1
+PATCH http://localhost:8081/api/periods/6
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTk0ODYsImV4cCI6MTY2MTM0NTg4Nn0.Ee9og0nGRJApncc708gdFadaHVyed5sDfRtTGNhTRbw
+Authorization: Bearer 
 
 {
   "type": "Breast pain",
@@ -35,7 +35,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTk0O
 
 POST http://localhost:8081/api/registration 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NjEyNTk0ODYsImV4cCI6MTY2MTM0NTg4Nn0.Ee9og0nGRJApncc708gdFadaHVyed5sDfRtTGNhTRbw
 
 {"login": "user22","password": "user22"}
 
@@ -48,5 +47,3 @@ Content-Type: application/json
 
 
 
-###
-GET http://localhost:8081/api/refresh
