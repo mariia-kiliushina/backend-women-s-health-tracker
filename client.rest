@@ -4,7 +4,7 @@ Authorization: Bearer
 
 ###
 GET http://localhost:8081/api/periods/4
-Authorization: Bearer 
+Authorization: Bearer TOKEN
 
 
 ###
@@ -32,18 +32,19 @@ Authorization: Bearer
 
 
 ###
-
-POST http://localhost:8081/api/registration 
+POST https://women-health-backend.herokuapp.com/api/registration
 Content-Type: application/json
 
-{"login": "user24","password": "user24"}
+{
+  "login": "user26",
+  "password": "user26"
+}
 
 ###
-
-POST http://localhost:8081/api/authentication 
+POST https://women-health-backend.herokuapp.com/api/authentication
 Content-Type: application/json
 
-{"login": "user24","password": "user24"}
-
-
-
+{
+  "login": "user26",
+  "password": "user26"
+}
