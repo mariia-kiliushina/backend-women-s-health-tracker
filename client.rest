@@ -36,8 +36,8 @@ POST https://women-health-backend.herokuapp.com/api/registration
 Content-Type: application/json
 
 {
-  "login": "user26",
-  "password": "user26"
+  "login": "user10",
+  "password": "user10"
 }
 
 ###

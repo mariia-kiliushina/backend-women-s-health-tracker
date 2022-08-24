@@ -1,21 +1,6 @@
-const { Client } = require('pg');
-const { config } = require('dotenv');
 const bcrypt = require('bcrypt');
-
-const { check } = require('express-validator');
+const client = require('../config/client');
 const generateTokenByLogin = require('../utils/generateTokenByLogin');
-
-config();
-
-const client = new Client({
-  database: process.env.DATABASE,
-  host: process.env.HOST,
-  password: process.env.PASSWORD,
-  port: 5432,
-  user: process.env.USER_NAME,
-});
-
-client.connect();
 
 let tableName = 'users_table';
 
